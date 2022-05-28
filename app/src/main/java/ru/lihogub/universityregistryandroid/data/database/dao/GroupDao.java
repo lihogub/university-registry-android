@@ -12,7 +12,6 @@ import androidx.room.Update;
 import java.util.List;
 import java.util.Optional;
 
-import ru.lihogub.universityregistryandroid.data.database.model.Faculty;
 import ru.lihogub.universityregistryandroid.data.database.model.Group;
 
 @Dao
@@ -26,9 +25,15 @@ public interface GroupDao {
     @Query("SELECT * FROM groups WHERE id = :id")
     Optional<Group> findById(Long id);
 
+    @Query("SELECT * FROM groups WHERE facultyId = :facultyId")
+    LiveData<List<Group>> findAllByFacultyIdReactive(Long facultyId);
+
     @Insert(onConflict = IGNORE)
     void insert(Group group);
 
     @Update(onConflict = REPLACE)
     void save(Group group);
+
+    @Query("DELETE FROM groups WHERE id = :id")
+    void delete(Long id);
 }

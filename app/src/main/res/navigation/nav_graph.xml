@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/groupListFragment">
+
+    <fragment
+        android:id="@+id/groupListFragment"
+        android:name="ru.lihogub.universityregistryandroid.presentation.feature.groupList.view.GroupListFragment"
+        android:label="GroupListFragment" >
+        <argument
+            android:name="facultyId"
+            app:argType="long"
+            android:defaultValue="0L"/>
+    </fragment>
+    <action
+        android:id="@+id/action_global_groupListFragment"
+        app:destination="@id/groupListFragment"
+        app:enterAnim="@anim/nav_default_enter_anim"
+        app:exitAnim="@anim/nav_default_exit_anim"
+        app:launchSingleTop="false"
+        app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+        app:popExitAnim="@anim/nav_default_pop_exit_anim">
+        <argument
+            android:name="facultyId"
+            app:argType="long"/>
+    </action>
+</navigation>
