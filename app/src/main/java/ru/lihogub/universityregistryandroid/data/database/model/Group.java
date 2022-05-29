@@ -3,7 +3,6 @@ package ru.lihogub.universityregistryandroid.data.database.model;
 import static androidx.room.ForeignKey.CASCADE;
 
 import androidx.room.ColumnInfo;
-import androidx.room.Embedded;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -23,12 +22,21 @@ public class Group {
     @ColumnInfo(name = "facultyId")
     public Long facultyId;
 
-    @Embedded(prefix = "direction_")
-    public StudyDirection direction;
+    @ColumnInfo(name = "direction_code")
+    public String directionCode;
+
+    @ColumnInfo(name = "direction_name")
+    public String directionName;
+
+    @ColumnInfo(name = "direction_profile")
+    public String directionProfile;
 
     @ColumnInfo(name = "fulltime_tuition")
     public Boolean fulltimeTuition;
 
-    @Embedded(prefix = "count_")
-    public StudentCount studentCount;
+    @ColumnInfo(name = "count_budget")
+    public long countBudget;
+
+    @ColumnInfo(name = "count_commerce")
+    public long countCommerce;
 }

@@ -12,6 +12,20 @@
             android:name="facultyId"
             app:argType="long"
             android:defaultValue="0L"/>
+        <action
+            android:id="@+id/action_groupListFragment_to_groupDetailsFragment"
+            app:destination="@id/groupDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+            <argument
+                android:name="groupId"
+                android:defaultValue="0L" />
+            <argument
+                android:name="facultyId"
+                android:defaultValue="0L" />
+        </action>
     </fragment>
     <action
         android:id="@+id/action_global_groupListFragment"
@@ -25,4 +39,17 @@
             android:name="facultyId"
             app:argType="long"/>
     </action>
+    <fragment
+        android:id="@+id/groupDetailsFragment"
+        android:name="ru.lihogub.universityregistryandroid.presentation.feature.groupDetails.view.GroupDetailsFragment"
+        android:label="GroupDetailsFragment" >
+        <argument
+            android:name="groupId"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <argument
+            android:name="facultyId"
+            app:argType="long"
+            android:defaultValue="0L" />
+    </fragment>
 </navigation>

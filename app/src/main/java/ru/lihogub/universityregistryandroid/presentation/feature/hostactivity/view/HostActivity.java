@@ -9,7 +9,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
 import com.google.android.material.navigation.NavigationView;
@@ -40,7 +39,7 @@ public class HostActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
         Menu menu = navigationView.getMenu();
-        menu.add(0, 0, Menu.NONE, "Add faculty");
+        menu.add(0, 0, Menu.NONE, "Добавить факультет");
         facultyDao
                 .findAllReactive()
                 .observe(this, faculties -> {
@@ -69,12 +68,12 @@ public class HostActivity extends AppCompatActivity {
         Faculty faculty = new Faculty();
         EditText editText = new EditText(this);
         new AlertDialog.Builder(this)
-                .setTitle("Add faculty")
+                .setTitle("Добавить факультет")
                 .setView(editText)
-                .setPositiveButton("Add", (dialog, which) -> {
+                .setPositiveButton("Добавить", (dialog, which) -> {
                     faculty.name = editText.getText().toString();
                     facultyDao.insert(faculty);
-                }).setNegativeButton("Cancel", (dialog, which) -> dialog.cancel())
+                }).setNegativeButton("Отменить", (dialog, which) -> dialog.cancel())
                 .show();
     }
 }
