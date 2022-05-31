@@ -12,11 +12,15 @@ import androidx.annotation.RequiresApi;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 import ru.lihogub.universityregistryandroid.R;
 import ru.lihogub.universityregistryandroid.data.database.model.Group;
+import ru.lihogub.universityregistryandroid.data.database.model.Student;
+import ru.lihogub.universityregistryandroid.data.database.model.StudentCount;
 import ru.lihogub.universityregistryandroid.databinding.GroupListItemBinding;
 
 @RequiresApi(api = Build.VERSION_CODES.N)
@@ -25,9 +29,9 @@ public class GroupListAdapter extends BaseAdapter {
     private final Consumer<Long> onEditAction;
     private final Consumer<Long> onDeleteAction;
     private final List<Group> groupList = new ArrayList<>();
+    private final Map<Group, StudentCount> groupCountMap = new HashMap<>();
     private SortField sortField = SortField.GROUP_NAME;
     private final Comparator<String> nullsLastStringComparator = Comparator.nullsLast((Comparator<String>) String::compareTo);
-
 
     public GroupListAdapter(
             Context context,
@@ -69,6 +73,10 @@ public class GroupListAdapter extends BaseAdapter {
         groupListItemBinding.groupDirectionName.setText(group.directionName);
         groupListItemBinding.groupDirectionProfile.setText(group.directionProfile);
 
+        StudentCount studentCount = groupCountMap.get(group);
+        groupListItemBinding.groupCountBudget.setText("" + studentCount.budget);
+        groupListItemBinding.groupCountCommerce.setText("" + studentCount.commerce);
+
         groupListItemBinding.groupEditButton
                 .setOnClickListener(v -> onEditAction.accept(group.id));
         groupListItemBinding.groupDeleteButton.
@@ -99,9 +107,11 @@ public class GroupListAdapter extends BaseAdapter {
         return groupListItemBinding.getRoot();
     }
 
-    public void updateGroupList(List<Group> groupList) {
+    public void updateGroupList(Map<Group, StudentCount> groupStudentCountMap) {
         this.groupList.clear();
-        this.groupList.addAll(groupList);
+        this.groupList.addAll(groupStudentCountMap.keySet());
+        this.groupCountMap.clear();
+        this.groupCountMap.putAll(groupStudentCountMap);
         this.sortGroups();
         notifyDataSetChanged();
     }

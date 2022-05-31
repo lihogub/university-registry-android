@@ -19,12 +19,18 @@ import androidx.navigation.Navigation;
 import ru.lihogub.universityregistryandroid.R;
 import ru.lihogub.universityregistryandroid.UniversityRegistryApp;
 import ru.lihogub.universityregistryandroid.data.database.dao.GroupDao;
+import ru.lihogub.universityregistryandroid.data.database.dao.StudentCountDao;
+import ru.lihogub.universityregistryandroid.data.database.dao.StudentDao;
 import ru.lihogub.universityregistryandroid.data.database.model.Group;
+import ru.lihogub.universityregistryandroid.data.database.model.StudentCount;
 import ru.lihogub.universityregistryandroid.databinding.FragmentGroupDetailsBinding;
 import ru.lihogub.universityregistryandroid.presentation.feature.groupList.view.GroupListFragmentDirections;
+import ru.lihogub.universityregistryandroid.presentation.feature.studentDetails.view.StudentDetailsFragmentDirections;
 
 public class GroupDetailsFragment extends Fragment {
     private final GroupDao groupDao = UniversityRegistryApp.appDatabase.getGroupDao();
+    private final StudentCountDao studentCountDao = UniversityRegistryApp.appDatabase.getStudentCountDao();
+    private final StudentDao studentDao = UniversityRegistryApp.appDatabase.getStudentDao();
     private FragmentGroupDetailsBinding binding;
     private Long currentGroupId;
     private Long currentFacultyId;
@@ -54,6 +60,10 @@ public class GroupDetailsFragment extends Fragment {
                     closeGroupDetailsModal();
                     return true;
                 }
+                case R.id.addStudentMenuOption: {
+                    showStudentDetails(0L);
+                    return true;
+                }
                 default:
                     return super.onOptionsItemSelected(item);
             }
@@ -73,18 +83,34 @@ public class GroupDetailsFragment extends Fragment {
                     return g;
                 });
 
+        studentCountDao
+                .getByGroupId(currentGroupId)
+                .observe(this, studentCount1 -> {
+                    binding.groupStudentCountBudget.setText("" + studentCount1.budget);
+                    binding.groupStudentCountCommerce.setText("" + studentCount1.commerce);
+                });
+
         binding.groupNameEditText.setText(group.name);
         binding.groupDirectionCodeEditText.setText(group.directionCode);
         binding.groupDirectionNameEditText.setText(group.directionName);
         binding.groupDirectionProfileEditText.setText(group.directionProfile);
-        binding.groupStudentCountBudgetEditText.setText("" + group.countBudget);
-        binding.groupStudentCountCommerceEditText.setText("" + group.countCommerce);
+
 
         binding.includedToolBar.titleTextView.setText("Окно детализации");
         binding.includedToolBar.showDrawerButton.setOnClickListener(v -> {
             DrawerLayout drawerLayout = getActivity().findViewById(R.id.drawerLayout);
             drawerLayout.open();
         });
+
+
+        StudentListAdapter studentListAdapter = new StudentListAdapter(
+                requireContext(),
+                this::showStudentDetails,
+                this::showDeleteStudentModal
+        );
+
+        binding.studentListView.setAdapter(studentListAdapter);
+        studentDao.findAllByGroupIdReactive(currentGroupId).observe(this, studentListAdapter::updateStudentList);
     }
 
     @Override
@@ -101,8 +127,6 @@ public class GroupDetailsFragment extends Fragment {
                     group.directionCode = binding.groupDirectionCodeEditText.getText().toString();
                     group.directionName = binding.groupDirectionNameEditText.getText().toString();
                     group.directionProfile = binding.groupDirectionProfileEditText.getText().toString();
-                    group.countBudget = Long.parseLong(binding.groupStudentCountBudgetEditText.getText().toString());
-                    group.countCommerce = Long.parseLong(binding.groupStudentCountCommerceEditText.getText().toString());
 
                     if (currentGroupId == 0) {
                         groupDao.insert(group);
@@ -120,6 +144,26 @@ public class GroupDetailsFragment extends Fragment {
                             .navigate(GroupListFragmentDirections.actionGlobalGroupListFragment(currentFacultyId));
                     dialog.cancel();
                 })
+                .show();
+    }
+
+    private void showStudentDetails(Long id) {
+        GroupDetailsFragmentDirections.ActionGroupDetailsFragmentToStudentDetailsFragment action = GroupDetailsFragmentDirections.actionGroupDetailsFragmentToStudentDetailsFragment();
+        action.setGroupId(currentGroupId);
+        action.setFacultyId(currentFacultyId);
+        action.setStudentId(id);
+        Navigation
+                .findNavController(requireActivity(), R.id.navHostFragment)
+                .navigate(action);
+    }
+
+    private void showDeleteStudentModal(long studentId) {
+        new AlertDialog.Builder(requireContext())
+                .setTitle("Удалить студента?")
+                .setPositiveButton("Удалить", (dialog, which) -> {
+                    studentDao.delete(studentId);
+                })
+                .setNegativeButton("Отменить", (dialog, which) -> dialog.cancel())
                 .show();
     }
 }

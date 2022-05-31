@@ -3,12 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/addStudentMenuOption"
-        android:icon="@android:drawable/ic_input_add"
-        android:title="Add student"
-        app:showAsAction="ifRoom" />
-
-    <item
         android:id="@+id/closeMenuOption"
         android:icon="@android:drawable/ic_menu_close_clear_cancel"
         android:title="Close"

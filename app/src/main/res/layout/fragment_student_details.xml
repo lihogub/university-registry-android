@@ -1,20 +1,19 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <include
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:id="@+id/includedToolBar"
         layout="@layout/my_toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"/>
 
     <LinearLayout
-        android:id="@+id/groupNameLayout"
+        android:id="@+id/studentLastnameLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
@@ -27,155 +26,101 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
             android:layout_marginStart="10dp"
-            android:text="Название \nгруппы: "
-            android:textStyle="bold" />
+            android:text="Фамилия: " />
 
         <EditText
-            android:id="@+id/groupNameEditText"
+            android:id="@+id/studentLastnameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
             android:layout_marginStart="10dp"
-            android:hint="Group name"
-            android:textStyle="bold" />
+            android:hint="Иванов" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/groupDirectionCodeLayout"
+        android:id="@+id/studentFirstnameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/groupNameLayout">
+        app:layout_constraintTop_toBottomOf="@id/studentLastnameLayout">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
             android:layout_marginStart="10dp"
-            android:text="Код \nнаправления: " />
+            android:text="Имя: " />
 
         <EditText
-            android:id="@+id/groupDirectionCodeEditText"
+            android:id="@+id/studentFirstnameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
             android:layout_marginStart="10dp"
-            android:hint="Direction code" />
+            android:hint="Иван" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/groupDirectionNameLayout"
+        android:id="@+id/studentMiddlenameLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/groupDirectionCodeLayout">
+        app:layout_constraintTop_toBottomOf="@id/studentFirstnameLayout">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
             android:layout_marginStart="10dp"
-            android:text="Название\n направления: "
+            android:text="Отчество: "
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/groupDirectionName" />
 
         <EditText
-            android:id="@+id/groupDirectionNameEditText"
+            android:id="@+id/studentMiddlenameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
             android:layout_marginStart="10dp"
-            android:hint="Direction name" />
+            android:hint="Иванович" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/groupDirectionProfileLayout"
+        android:id="@+id/studentPaymentLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/groupDirectionNameLayout">
+        app:layout_constraintTop_toBottomOf="@id/studentMiddlenameLayout">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
             android:layout_marginStart="10dp"
-            android:text="Профиль: "
+            android:text="Форма обучения: "
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/groupDirectionName" />
 
-        <EditText
-            android:id="@+id/groupDirectionProfileEditText"
+        <ToggleButton
+            android:id="@+id/studentPaymentToggleButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
             android:layout_marginStart="10dp"
-            android:hint="Profile name" />
+            android:textOn="Бюджетная"
+            android:textOff="Договорная"/>
 
     </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/groupStudentCountBudgetLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/groupDirectionProfileLayout">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="10dp"
-            android:text="Форма оплаты: "
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/groupDirectionName" />
-
-        <TextView
-            android:id="@+id/groupStudentCountBudget"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="10dp"
-            android:text="10" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="10dp"
-            android:text="/" />
-
-        <TextView
-            android:id="@+id/groupStudentCountCommerce"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:layout_marginStart="10dp"
-            android:text="15" />
-
-    </LinearLayout>
-
-    <ListView
-        android:id="@+id/studentListView"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/groupStudentCountBudgetLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

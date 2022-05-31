@@ -7,9 +7,11 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
+import java.util.Objects;
+
 
 @Entity(tableName = "groups", foreignKeys = {
-        @ForeignKey(entity = Faculty.class, parentColumns = "id", childColumns = "facultyId", onDelete = CASCADE)
+        @ForeignKey(entity = Faculty.class, parentColumns = "id", childColumns = "faculty_id", onDelete = CASCADE)
 })
 public class Group {
     @PrimaryKey(autoGenerate = true)
@@ -19,7 +21,7 @@ public class Group {
     @ColumnInfo(name = "name")
     public String name;
 
-    @ColumnInfo(name = "facultyId")
+    @ColumnInfo(name = "faculty_id")
     public Long facultyId;
 
     @ColumnInfo(name = "direction_code")
@@ -31,12 +33,16 @@ public class Group {
     @ColumnInfo(name = "direction_profile")
     public String directionProfile;
 
-    @ColumnInfo(name = "fulltime_tuition")
-    public Boolean fulltimeTuition;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Group group = (Group) o;
+        return Objects.equals(id, group.id) && Objects.equals(name, group.name) && Objects.equals(facultyId, group.facultyId) && Objects.equals(directionCode, group.directionCode) && Objects.equals(directionName, group.directionName) && Objects.equals(directionProfile, group.directionProfile);
+    }
 
-    @ColumnInfo(name = "count_budget")
-    public long countBudget;
-
-    @ColumnInfo(name = "count_commerce")
-    public long countCommerce;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, facultyId, directionCode, directionName, directionProfile);
+    }
 }

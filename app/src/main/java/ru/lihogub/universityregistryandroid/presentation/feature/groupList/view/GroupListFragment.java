@@ -97,7 +97,7 @@ public class GroupListFragment extends Fragment {
         );
         binding.groupListView.setAdapter(groupListAdapter);
 
-        groupDao.findAllByFacultyIdReactive(currentFacultyId)
+        groupDao.findAllWithStudentCountByFacultyId(currentFacultyId)
                 .observe(this, groupListAdapter::updateGroupList);
 
         binding.includedToolBar.showDrawerButton.setOnClickListener(v -> {

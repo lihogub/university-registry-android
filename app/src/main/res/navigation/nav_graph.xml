@@ -51,5 +51,53 @@
             android:name="facultyId"
             app:argType="long"
             android:defaultValue="0L" />
+        <action
+            android:id="@+id/action_groupDetailsFragment_to_studentDetailsFragment"
+            app:destination="@id/studentDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+            <argument
+                android:name="groupId"
+                android:defaultValue="0L" />
+            <argument
+                android:name="studentId"
+                android:defaultValue="0L" />
+            <argument
+                android:name="facultyId"
+                android:defaultValue="0L" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/studentDetailsFragment"
+        android:name="ru.lihogub.universityregistryandroid.presentation.feature.studentDetails.view.StudentDetailsFragment"
+        android:label="StudentDetailsFragment" >
+        <argument
+            android:name="groupId"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <argument
+            android:name="studentId"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <argument
+            android:name="facultyId"
+            app:argType="long"
+            android:defaultValue="0L" />
+        <action
+            android:id="@+id/action_studentDetailsFragment_to_groupDetailsFragment2"
+            app:destination="@id/groupDetailsFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim">
+            <argument
+                android:name="groupId"
+                android:defaultValue="0L" />
+            <argument
+                android:name="facultyId"
+                android:defaultValue="0L" />
+        </action>
     </fragment>
 </navigation>
